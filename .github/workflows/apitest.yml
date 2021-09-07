@@ -25,6 +25,7 @@ jobs:
       - name: Run a multi-line script
         run: |
           ./apitest.sh
+          echo $RESPONSE
         
   deploy:
      runs-on: ubuntu-latest
