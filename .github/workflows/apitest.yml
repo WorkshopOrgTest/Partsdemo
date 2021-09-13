@@ -27,8 +27,10 @@ jobs:
         id: myRequest
         uses: fjogeleit/http-request-action@master
         with:
-          url: 'https://api.github.com/repos/CanarysPlayground/tailspin-spacegame'
-          method: 'GET'
+          url: 'https://api.github.com/orgs/CanarysPlayground/repos'
+          customHeaders: '{"accept":"application/vnd.github.v3+json"}'
+          method: 'POST'
+          data: '{"name":"apirepo","visibility":"private"}'
           username: vaishnav-canarys
           bearerToken: ${{ secrets.GITHUB_TOKEN }}
       
