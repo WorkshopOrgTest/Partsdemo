@@ -30,7 +30,7 @@ jobs:
           url: 'https://api.github.com/orgs/CanarysPlayground/repos'
           customHeaders: '{"accept":"application/vnd.github.nebula-preview+json"}'
           method: 'POST'
-          data: '{"name":"apirepo10","visibility":"private"}'
+          data: '{"name":"apirepo11","visibility":"private"}'
           bearerToken: ${{ secrets.API_TOKEN }}
       
       - name: response
