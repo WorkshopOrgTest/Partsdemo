@@ -30,14 +30,14 @@ jobs:
           url: 'https://api.github.com/orgs/CanarysPlayground/repos'
           customHeaders: '{"accept":"application/vnd.github.nebula-preview+json"}'
           method: 'POST'
-          data: '{"name":"apirepo9","visibility":"private"}'
+          data: '{"name":"apirepo10","visibility":"private"}'
           bearerToken: ${{ secrets.API_TOKEN }}
       
       - name: response
         run: |
          echo ${{fromJSON( steps.myRequest.outputs.response).name}}
          reponame=${{fromJSON( steps.myRequest.outputs.response).name}}
-         if [[ "$reponame" == "apirepo8" ]];
+         if [[ "$reponame" == "apirepo10" ]];
          then 
            exit 0
          else
