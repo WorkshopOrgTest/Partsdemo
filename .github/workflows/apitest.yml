@@ -33,8 +33,11 @@ jobs:
           bearerToken: ${{ secrets.GITHUB_TOKEN }}
       
       - name: response
+        shell: pwsh
         run: |
-          echo ${{ steps.myRequest.outputs.response.name }}
+          $response = ${{ steps.myRequest.outputs.response }}
+          $reponame = $response.name
+          Write-Host $reponame
         
   deploy:
      runs-on: ubuntu-latest
