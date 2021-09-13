@@ -34,7 +34,7 @@ jobs:
       
       - name: response
         run: |
-          echo ${{ steps.myRequest.outputs.response }}
+          echo ${{ steps.myRequest.outputs.response.name }}
         
   deploy:
      runs-on: ubuntu-latest
