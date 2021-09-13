@@ -31,7 +31,6 @@ jobs:
           customHeaders: '{"accept":"application/vnd.github.v3+json"}'
           method: 'POST'
           data: '{"name":"apirepo","visibility":"private"}'
-          username: vaishnav-canarys
           bearerToken: ${{ secrets.API_TOKEN }}
       
       - name: response
