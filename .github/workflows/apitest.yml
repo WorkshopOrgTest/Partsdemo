@@ -37,8 +37,7 @@ jobs:
       - name: response
         shell: pwsh
         run: |
-         Write-Host ${{ steps.myRequest.outputs.response }}
-          
+         Write-Host ${{ steps.myRequest.outputs.response }}         
         
   deploy:
      runs-on: ubuntu-latest
