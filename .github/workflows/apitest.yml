@@ -30,12 +30,15 @@ jobs:
           url: 'https://api.github.com/orgs/CanarysPlayground/repos'
           customHeaders: '{"accept":"application/vnd.github.nebula-preview+json"}'
           method: 'POST'
-          data: '{"name":"apirepo","visibility":"private"}'
+          data: '{"name":"apirepo2","visibility":"private"}'
           bearerToken: ${{ secrets.API_TOKEN }}
       
       - name: response
         run: |
-         echo ${{ steps.myRequest.outputs.response }}         
+         echo ${{ steps.myRequest.outputs.response }}       
+     
+      type: gate
+      
         
   deploy:
      runs-on: ubuntu-latest
