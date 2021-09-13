@@ -35,9 +35,7 @@ jobs:
       
       - name: response
         run: |
-         echo ${{ steps.myRequest.outputs.response }}       
-     
-      type: gate
+         echo ${{ steps.myRequest.outputs.response }}      
       
         
   deploy:
