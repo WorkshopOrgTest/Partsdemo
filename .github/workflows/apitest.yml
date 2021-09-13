@@ -32,14 +32,13 @@ jobs:
           method: 'POST'
           data: '{"name":"apirepo","visibility":"private"}'
           username: vaishnav-canarys
-          bearerToken: ${{ secrets.GITHUB_TOKEN }}
+          bearerToken: ${{ secrets.API_TOKEN }}
       
       - name: response
         shell: pwsh
         run: |
-          $response = ${{ steps.myRequest.outputs.response }}
-          $reponame = $response.name
-          Write-Host $reponame
+         Write-Host ${{ steps.myRequest.outputs.response }}
+          
         
   deploy:
      runs-on: ubuntu-latest
