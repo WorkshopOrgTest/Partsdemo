@@ -17,7 +17,7 @@ on:
 jobs:
   
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       
       - uses: actions/checkout@v2
@@ -34,9 +34,8 @@ jobs:
           bearerToken: ${{ secrets.API_TOKEN }}
       
       - name: response
-        shell: pwsh
         run: |
-         Write-Host ${{ steps.myRequest.outputs.response }}         
+         echo ${{ steps.myRequest.outputs.response }}         
         
   deploy:
      runs-on: ubuntu-latest
