@@ -1,5 +1,3 @@
-function apicall
-{
 param(
 [string]$token,
 [string]$method,
@@ -33,7 +31,3 @@ $repobody = $RequestBody
 $apiobject = Invoke-RestMethod @getapirequest
 
 return $apiobject
-
-}
-
-apicall -token $token -Header $Headers -RequestBody $RequestData
