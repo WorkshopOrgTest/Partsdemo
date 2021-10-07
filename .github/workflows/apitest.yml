@@ -18,6 +18,7 @@ jobs:
   
   build:
     runs-on: windows-latest
+    outputs: ${{ steps.apitest.outputs.JsonOutput }}
     steps:
       
       - uses: actions/checkout@v2
@@ -26,7 +27,7 @@ jobs:
       - name: Deploy Stage
         id: apitest
         run: |
-         ./apicalltest.ps1 -token ${{secrets.API_TOKEN}} -Header "application/vnd.github.v3+json" -RequestBody '{"name":"Created-From-Script-4","visibility":"private"}'
+         ./apicalltest.ps1 -token ${{secrets.API_TOKEN}} -Header "application/vnd.github.v3+json" -RequestBody '{"name":"Created-From-Script-5","visibility":"private"}'
          echo "::set-output name=JsonOutput::$apicallobject"
 #         uses: fjogeleit/http-request-action@master
 #         with:
