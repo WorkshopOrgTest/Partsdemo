@@ -17,27 +17,30 @@ on:
 jobs:
   
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       
       - uses: actions/checkout@v2
       
   
       - name: Deploy Stage
-        id: myRequest
-        uses: fjogeleit/http-request-action@master
-        with:
-          url: 'https://api.github.com/orgs/CanarysPlayground/repos'
-          customHeaders: '{"accept":"application/vnd.github.nebula-preview+json"}'
-          method: 'POST'
-          data: '{"name":"apirepo13","visibility":"private"}'
-          bearerToken: ${{ secrets.API_TOKEN }}
+        id: apitest
+        run:
+         ./apicalltest.ps1 -token ${{secrets.token}} --Header "application/vnd.github.v3+json" -method "POST" -RequestBody '{"name":"Created-From-Script-1","visibility":"private"}'
+         Write-Output "::set-output name=JsonOutput::$apicallobject"
+#         uses: fjogeleit/http-request-action@master
+#         with:
+#           url: 'https://api.github.com/orgs/CanarysPlayground/repos'
+#           customHeaders: '{"accept":"application/vnd.github.nebula-preview+json"}'
+#           method: 'POST'
+#           data: '{"name":"apirepo13","visibility":"private"}'
+#           bearerToken: ${{ secrets.API_TOKEN }}
       
       - name: response
         run: |
-         echo ${{fromJSON( steps.myRequest.outputs.response).name}}
-         reponame=${{fromJSON( steps.myRequest.outputs.response).name}}
-         if [[ "$reponame" == "apirepo12" ]];
+         echo ${{fromJSON( steps.apitest.outputs.JsonOutPut).name}}
+         reponame=${{fromJSON( steps.myRequest.outputs.JsonOutPut).name}}
+         if [[ "$reponame" == "Created-From-Script-2" ]];
          then 
            exit 0
          else
