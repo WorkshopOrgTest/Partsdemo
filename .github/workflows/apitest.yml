@@ -26,7 +26,7 @@ jobs:
       - name: Deploy Stage
         id: apitest
         run: |
-         ./apicalltest.ps1 -token ${{secrets.API_TOKEN}} -Header "application/vnd.github.v3+json" -RequestBody '{"name":"Created-From-Script-3","visibility":"private"}'
+         ./apicalltest.ps1 -token ${{secrets.API_TOKEN}} -Header "application/vnd.github.v3+json" -RequestBody '{"name":"Created-From-Script-4","visibility":"private"}'
          echo "::set-output name=JsonOutput::$apicallobject"
 #         uses: fjogeleit/http-request-action@master
 #         with:
@@ -38,8 +38,8 @@ jobs:
       
       - name: response
         run: |
-         echo ${{fromJSON( steps.apitest.outputs.JsonOutPut).name}}
-         reponame=${{fromJSON( steps.myRequest.outputs.JsonOutPut).name}}
+         echo ${{fromJSON( steps.apitest.outputs.JsonOutput).name}}
+         reponame=${{fromJSON( steps.myRequest.outputs.JsonOutput).name}}
          echo reponame
  #        if [[ "$reponame" == "Created-From-Script-2" ]];
  #        then 
