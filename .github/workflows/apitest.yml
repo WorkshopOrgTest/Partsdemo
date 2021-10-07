@@ -40,12 +40,13 @@ jobs:
         run: |
          echo ${{fromJSON( steps.apitest.outputs.JsonOutPut).name}}
          reponame=${{fromJSON( steps.myRequest.outputs.JsonOutPut).name}}
-         if [[ "$reponame" == "Created-From-Script-2" ]];
-         then 
-           exit 0
-         else
-           exit 1
-         fi
+         echo reponame
+ #        if [[ "$reponame" == "Created-From-Script-2" ]];
+ #        then 
+ #          exit 0
+ #        else
+ #          exit 1
+ #        fi
       
         
   deploy:
