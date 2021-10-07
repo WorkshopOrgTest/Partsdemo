@@ -27,7 +27,7 @@ jobs:
         id: apitest
         run:
          ./apicalltest.ps1 -token ${{secrets.API_TOKEN}} -Headers "application/vnd.github.v3+json" -RequestData '{"name":"Created-From-Script-1","visibility":"private"}'
-         Write-Output "::set-output name=JsonOutput::$apicallobject"
+         echo "::set-output name=JsonOutput::$apicallobject"
 #         uses: fjogeleit/http-request-action@master
 #         with:
 #           url: 'https://api.github.com/orgs/CanarysPlayground/repos'
