@@ -25,7 +25,7 @@ jobs:
   
       - name: Deploy Stage
         id: apitest
-        run:
+        run: |
          ./apicalltest.ps1 -token ${{secrets.API_TOKEN}} -Headers "application/vnd.github.v3+json" -RequestData '{"name":"Created-From-Script-1","visibility":"private"}'
          echo "::set-output name=JsonOutput::$apicallobject"
 #         uses: fjogeleit/http-request-action@master
