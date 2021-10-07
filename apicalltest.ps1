@@ -24,7 +24,7 @@ $repobody = $RequestBody
 
  $getapirequest = @{
 		Uri = "https://api.github.com/orgs/CanarysPlayground/repos"
-		Method = $method
+		Method = "Post"
                 body = $repobody
 		ContentType = "application/json"
 		Headers = $GitHubAdminHeader
@@ -36,4 +36,4 @@ return $apiobject
 
 }
 
-apicall -token $token -Header $Headers -method $httpmethod -RequestBody $RequestData
+apicall -token $token -Header $Headers -RequestBody $RequestData
