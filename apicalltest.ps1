@@ -22,17 +22,17 @@ $GitHubAdminHeader = @{
 $repobody = $RequestBody 
 
 
- $getmembersrequest = @{
-					    Uri = "https://api.github.com/orgs/CanarysPlayground/repos"
-					    Method = $method
-                        body = $repobody
-				    	ContentType = "application/json"
-			    		Headers = $GitHubAdminHeader
+ $getapirequest = @{
+		Uri = "https://api.github.com/orgs/CanarysPlayground/repos"
+		Method = $method
+                body = $repobody
+		ContentType = "application/json"
+		Headers = $GitHubAdminHeader
         }
 
-$membersobject = Invoke-RestMethod @getmembersrequest
+$apiobject = Invoke-RestMethod @getapirequest
 
-$membersobject
+return $apiobject
 
 }
 
