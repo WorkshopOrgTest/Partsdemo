@@ -4,11 +4,7 @@ name: CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -30,13 +26,7 @@ jobs:
          ./apicalltest.ps1 -token ${{secrets.API_TOKEN}} -Header "application/vnd.github.v3+json" -RequestBody '{"name":"Created-From-Script-3","visibility":"private"}'
          $reponame = $apiobject.name
          Write-Output $reponame
-#         uses: fjogeleit/http-request-action@master
-#         with:
-#           url: 'https://api.github.com/orgs/CanarysPlayground/repos'
-#           customHeaders: '{"accept":"application/vnd.github.nebula-preview+json"}'
-#           method: 'POST'
-#           data: '{"name":"apirepo13","visibility":"private"}'
-#           bearerToken: ${{ secrets.API_TOKEN }}
+
       
       - name: response
         run: |
