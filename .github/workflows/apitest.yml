@@ -23,23 +23,7 @@ jobs:
       - name: Deploy Stage
         id: apitest
         run: |
-         ./apicalltest.ps1 -token ${{secrets.API_TOKEN}} -Header "application/vnd.github.v3+json" -RequestBody '{"name":"Created-From-Script-3","visibility":"private"}'
-         $reponame = $apiobject.name
-         Write-Output $reponame
-
-      
-      - name: response
-        run: |
-         echo ${{fromJSON( steps.apitest.outputs.JsonOutput).name}}
-         reponame=${{fromJSON( steps.myRequest.outputs.JsonOutput).name}}
-         echo reponame
- #        if [[ "$reponame" == "Created-From-Script-2" ]];
- #        then 
- #          exit 0
- #        else
- #          exit 1
- #        fi
-      
+         ./apicalltest.ps1 -token ${{secrets.API_TOKEN}} -Header "application/vnd.github.v3+json" -RequestBody '{"name":"Created-From-Script-10","visibility":"private"}' -ExpectedOutput "Created-From-Script-10"    
         
   deploy:
      runs-on: ubuntu-latest
