@@ -2,7 +2,8 @@ param(
 [string]$token,
 [string]$method,
 [string]$Header,
-[string]$RequestBody)
+[string]$RequestBody,
+[string]$ExpectedOutput)
 
 
 
@@ -30,4 +31,9 @@ $repobody = $RequestBody
 
 $apiobject = Invoke-RestMethod @getapirequest
 
-return $apiobject
+$output = $apiobject.name
+
+if ($output -ne $ExpectedOutput)
+{
+	Write-Error "Not an Expected Response"
+}else { Write-Host "Expected Output" }
