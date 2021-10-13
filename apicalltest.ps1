@@ -7,8 +7,6 @@ param(
 
 
 
-#$token ="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"
-
 #$Header = "application/vnd.github.v3+json"
 
 #$RequestBody = '{"name":"Created-From-Script,"visibility":"private"}'
@@ -36,4 +34,5 @@ $output = $apiobject.name
 if ($output -ne $ExpectedOutput)
 {
 	Write-Error "Not an Expected Response"
+	
 }else { Write-Host "Expected Output" }
