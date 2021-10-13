@@ -13,7 +13,7 @@ param(
 
 #$RequestBody = '{"name":"Created-From-Script,"visibility":"private"}'
 
-$GitHubAdminHeader = @{
+$AuthorizationHeader = @{
     Authorization = 'Bearer ' + $token
     Accept = $Header
 } 
@@ -26,10 +26,10 @@ $repobody = $RequestBody
 		Method = "Post"
                 body = $repobody
 		ContentType = "application/json"
-		Headers = $GitHubAdminHeader
+		Headers = $AuthorizationHeader
         }
 
-$apiobject = Invoke-RestMethod @getapirequest
+$apiobject = Invoke-RestMethod @getapirequest -TimeoutSec 5000
 
 $output = $apiobject.name
 
