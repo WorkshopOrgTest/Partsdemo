@@ -14,7 +14,7 @@ jobs:
       - name: Deploy Stage
         id: apitest
         run: |
-         ./apicalltest.ps1 -token ${{secrets.API_TOKEN}} -Header "application/vnd.github.v3+json" -RequestBody '{"name":"Created-From-Script-22","visibility":"private"}' -ExpectedOutput "Created-From-Script-10"    
+         ./apicalltest.ps1 -token ${{secrets.API_TOKEN}} -Header "application/vnd.github.v3+json" -RequestBody '{"name":"Created-From-Script-30","visibility":"private"}' -ExpectedOutput "Created-From-Script-30"    
         
   deploy:
      runs-on: ubuntu-latest
