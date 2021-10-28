@@ -1,4 +1,4 @@
-name: PartsUnlimited.Web
+name: PartsUnlimited.Web.sessiondemo
 
 on:
   push:
