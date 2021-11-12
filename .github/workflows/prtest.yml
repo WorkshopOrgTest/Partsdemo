@@ -16,7 +16,7 @@ jobs:
         
       - name: Comparing Branches
         id: compare
-        if: ${{ github.head_ref == 'dev-1' && github.base_ref == 'master' }}
+        if: ${{ github.head_ref == 'feature' && github.base_ref == 'development' }}
         run: echo ::set-output name=status::success
         continue-on-error: true
         
@@ -53,3 +53,4 @@ jobs:
         if: steps.compare.outputs.status != 'success'
         run: exit 1
            
+
