@@ -10,7 +10,11 @@ jobs:
       
       - name: Deploy Stage
         uses: WorkshopOrgTest/api-composite-action@v1
-        
+        with:
+          Header: ${{secrets.HEADER}}
+          RequestBody: ${{secrets.REQUESTBODY}}
+          ExpectedOutput: ${{secrets.EXPECTEDOUTPUT}}
+    
   deploy:
      runs-on: ubuntu-latest
      needs: build
