@@ -1,0 +1,18 @@
+name: APITest
+on:
+  workflow_dispatch:
+
+jobs:
+  
+  build:
+    runs-on: windows-latest
+    steps:    
+      
+      - name: Deploy Stage
+        uses: WorkshopOrgTest/api-composite-action@v1
+        
+  deploy:
+     runs-on: ubuntu-latest
+     needs: build
+     steps:
+      - uses: actions/checkout@v2
