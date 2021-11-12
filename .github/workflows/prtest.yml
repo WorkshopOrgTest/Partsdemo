@@ -1,0 +1,45 @@
+name: PRTEST
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # main <-- dev-a
+    if: ${{ github.head_ref == 'dev-a' && github.base_ref == 'main' }}
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        
+      - name: Get Pull Request ID
+        run: |
+         export PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
+         echo "pr_num=$PR_NUMBER" >> $GITHUB_ENV
+         
+
+      - name: Add Comment to Pull Request if Success
+        if: ${{ success() }}
+        uses: actions/github-script@v5
+        with:
+          script: |
+           await github.rest.issues.createComment({
+           owner: context.repo.owner, 
+           repo: context.repo.repo, 
+           issue_number: ${{ env.pr_num }},
+           body: 'Its Success'
+           });
+           
+      - name: Add Comment to Pull Request if Failure
+        if: ${{ failure() }}
+        uses: actions/github-script@v5
+        with:
+          script: |
+           await github.rest.issues.createComment({
+           owner: context.repo.owner, 
+           repo: context.repo.repo, 
+           issue_number: ${{ env.pr_num }},
+           body: 'Its Failure'
+           });
