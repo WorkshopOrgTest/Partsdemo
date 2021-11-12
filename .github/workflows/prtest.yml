@@ -17,7 +17,7 @@ jobs:
       - name: Comparing Branches
         id: compare
         if: ${{ github.head_ref == 'dev-1' && github.base_ref == 'master' }}
-        run: echo "Success"
+        run: echo ::set-output name=status::success
         continue-on-error: true
         
       - name: Get Pull Request ID
@@ -27,7 +27,7 @@ jobs:
          
 
       - name: Add Comment to Pull Request if Success
-        if: steps.compare.outcome = 'success'
+        if: steps.compare.outputs.status == 'success'
         uses: actions/github-script@v5
         with:
           script: |
@@ -39,7 +39,7 @@ jobs:
            });
            
       - name: Add Comment to Pull Request if Failure
-        if: steps.compare.outcome = 'failure'
+        if: steps.compare.outputs.status !== 'success'
         uses: actions/github-script@v5
         with:
           script: |
