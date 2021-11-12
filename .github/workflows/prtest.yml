@@ -18,6 +18,7 @@ jobs:
         id: compare
         if: ${{ github.head_ref == 'dev-1' && github.base_ref == 'master' }}
         run: echo "Success"
+        continue-on-error: true
         
       - name: Get Pull Request ID
         run: |
