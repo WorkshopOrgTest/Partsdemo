@@ -39,7 +39,7 @@ jobs:
            });
            
       - name: Add Comment to Pull Request if Failure
-        if: steps.compare.outputs.status !== 'success'
+        if: steps.compare.outputs.status != 'success'
         uses: actions/github-script@v5
         with:
           script: |
