@@ -8,11 +8,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     # main <-- dev-a
-    if: ${{ github.head_ref == 'dev-1' && github.base_ref == 'master' }}
+    # if: ${{ github.head_ref == 'dev-1' && github.base_ref == 'master' }}
     
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+        
+      - name: Comparing Branches
+        id: compare
+        if: ${{ github.head_ref == 'dev-1' && github.base_ref == 'master' }}
+        run: echo "Success"
         
       - name: Get Pull Request ID
         run: |
@@ -21,7 +26,7 @@ jobs:
          
 
       - name: Add Comment to Pull Request if Success
-        if: ${{ success() }}
+        if: steps.compare.outcome = 'success'
         uses: actions/github-script@v5
         with:
           script: |
@@ -33,7 +38,7 @@ jobs:
            });
            
       - name: Add Comment to Pull Request if Failure
-        if: ${{ failure() }}
+        if: steps.compare.outcome = 'failure'
         uses: actions/github-script@v5
         with:
           script: |
