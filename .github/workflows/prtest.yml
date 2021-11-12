@@ -49,3 +49,7 @@ jobs:
            issue_number: ${{ env.pr_num }},
            body: 'Its Failure'
            });
+           
+      - name: Failing action
+        if: steps.compare.outputs.status != 'success'
+        run: exit 1
