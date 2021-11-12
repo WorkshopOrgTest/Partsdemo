@@ -9,8 +9,9 @@ jobs:
     steps:    
       
       - name: Deploy Stage
-        uses: WorkshopOrgTest/api-composite-action@v2.1
+        uses: WorkshopOrgTest/api-composite-action@v2.2
         with:
+          Token: ${{secrets.API_TOKEN}}
           Header: ${{secrets.HEADER}}
           RequestBody: ${{secrets.REQUESTBODY}}
           ExpectedOutput: ${{secrets.EXPECTEDOUTPUT}}
