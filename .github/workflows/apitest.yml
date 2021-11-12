@@ -1,7 +1,5 @@
 
-name: CI
-
-
+name: APITest
 on:
   workflow_dispatch:
 
