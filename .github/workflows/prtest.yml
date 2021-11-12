@@ -2,13 +2,13 @@ name: PRTEST
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     # main <-- dev-a
-    if: ${{ github.head_ref == 'dev-a' && github.base_ref == 'main' }}
+    if: ${{ github.head_ref == 'dev-1' && github.base_ref == 'master' }}
     
     steps:
       - name: Checkout Repository
