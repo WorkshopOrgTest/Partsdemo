@@ -2,7 +2,7 @@ name: PRTEST
 
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ master,development ]
 
 jobs:
   build:
@@ -48,7 +48,13 @@ jobs:
            repo: context.repo.repo, 
            issue_number: ${{ env.pr_num }},
            body: 'Its Failure'
-           });
+           });   
+           await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo ,
+              pull_number: ${{ env.pr_num }},
+              state: closed
+            });
            
       - name: Failing action
         if: steps.compare.outputs.status != 'success'
