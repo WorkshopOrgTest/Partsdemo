@@ -49,15 +49,17 @@ jobs:
            issue_number: ${{ env.pr_num }},
            body: 'Incorrect PR is created'
            });  
-           await github.rest.pulls.update({
-              owner: context.repo.owner,
-              repo: context.repo.repo ,
-              pull_number: ${{ env.pr_num }},
-              state: closed
-            });
            
-      - name: Failing action
+      - name: Close PR and Failing action
         if: steps.compare.outputs.status != 'success'
-        run: exit 1
-           
+        uses: actions/github-script@v5
+        with:
+          script: |
+            await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo ,
+                issue_number: ${{ env.pr_num }},
+                state: closed
+              });
+
 

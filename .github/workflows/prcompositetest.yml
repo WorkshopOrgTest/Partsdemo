@@ -1,0 +1,16 @@
+name: PRCompositeTest
+on:
+  pull_request:
+    branches: master
+
+jobs:
+  
+  build:
+    runs-on: windows-latest
+    steps:    
+      
+      - name: Deploy Stage
+        uses: WorkshopOrgTest/prtestcompositeaction@v1.0
+        with:
+          Base: 'master'
+          Head: 'development'
