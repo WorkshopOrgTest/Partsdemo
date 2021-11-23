@@ -47,8 +47,8 @@ jobs:
            owner: context.repo.owner, 
            repo: context.repo.repo, 
            issue_number: ${{ env.pr_num }},
-           body: 'Its Failure'
-           });   
+           body: 'Incorrect PR is created'
+           });  
            await github.rest.pulls.update({
               owner: context.repo.owner,
               repo: context.repo.repo ,
@@ -59,3 +59,5 @@ jobs:
       - name: Failing action
         if: steps.compare.outputs.status != 'success'
         run: exit 1
+           
+
