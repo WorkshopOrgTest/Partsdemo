@@ -16,7 +16,7 @@ jobs:
         
       - name: Comparing Branches
         id: compare
-        if: ${{ github.head_ref == 'dev-1' && github.base_ref == 'master' }}
+        if: ${{ github.head_ref == 'feature' && github.base_ref == 'development' }}
         run: echo ::set-output name=status::success
         continue-on-error: true
         
@@ -47,5 +47,10 @@ jobs:
            owner: context.repo.owner, 
            repo: context.repo.repo, 
            issue_number: ${{ env.pr_num }},
-           body: 'Its Failure'
+           body: 'Incorrect PR is created'
            });
+      - name: Failing the Action
+        if: steps.compare.outputs.status != 'success'
+        run: exit 1
+           
+
