@@ -2,7 +2,7 @@ name: PRTEST
 
 on:
   pull_request:
-    branches: [ master,development ]
+    types: [ opened ]
 
 jobs:
   build:
