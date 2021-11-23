@@ -52,13 +52,14 @@ jobs:
            
       - name: Close PR and Failing action
         if: steps.compare.outputs.status != 'success'
-        run: |
-          await github.rest.pulls.update({
-              owner: context.repo.owner,
-              repo: context.repo.repo ,
-              pull_number: ${{ env.pr_num }},
-              state: closed
-            });
-          exit 1
-           
+        uses: actions/github-script@v5
+        with:
+          script: |
+            await github.rest.pulls.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo ,
+                pull_number: ${{ env.pr_num }},
+                state: closed
+              });
+
 
