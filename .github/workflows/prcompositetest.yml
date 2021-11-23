@@ -1,4 +1,4 @@
-name: PRTest
+name: PRCompositeTest
 on:
   pull_request:
     branches: master
@@ -13,4 +13,4 @@ jobs:
         uses: WorkshopOrgTest/prtestcompositeaction@v1.0
         with:
           Base: 'master'
-          Head: 'development
+          Head: 'development'
