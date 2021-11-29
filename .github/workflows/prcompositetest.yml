@@ -10,7 +10,7 @@ jobs:
     steps:    
       
       - name: Deploy Stage
-        uses: WorkshopOrgTest/prtestcompositeaction@main
+        uses: WorkshopOrgTest/prtestcompositeaction@2.4.4
         with:
           Base: 'master'
           Head: 'development'
