@@ -1,7 +1,5 @@
 name: PRCompositeTest
-on:
-  pull_request:
-    branches: master
+on: [pull_request]
 
 jobs:
   
@@ -10,7 +8,7 @@ jobs:
     steps:    
       
       - name: Deploy Stage
-        uses: WorkshopOrgTest/prtestcompositeaction@v1.0
+        uses: WorkshopOrgTest/prtestcompositeaction@main
         with:
           Base: 'master'
           Head: 'development'
