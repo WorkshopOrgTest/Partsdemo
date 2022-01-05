@@ -1,5 +1,6 @@
 name: PRCompositeTest
-on: [pull_request]
+on: 
+  workflow_dispatch:
 
 jobs:
   
@@ -8,7 +9,5 @@ jobs:
     steps:    
       
       - name: Deploy Stage
-        uses: WorkshopOrgTest/prtestcompositeaction@main
-        with:
-          Base: 'master'
-          Head: 'development'
+        run : |
+         echo $PATH
