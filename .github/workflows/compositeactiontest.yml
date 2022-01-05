@@ -11,6 +11,18 @@ jobs:
         - name: Checkout
           uses: actions/checkout@v2.4.0
         
+        - name: Create status check
+          env:
+             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          run: |
+            BUILD_COMMIT=$(git rev-parse HEAD)
+            REPO_NAME=$(github.event.repository.name)
+            curl \
+            -X POST \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/WorkshopOrgTest/PartsTest/check-runs \
+            -d '{"name":"build", "head_sha": "'"$BUILD_COMMIT"'", "status": "completed", "conclusion": "success" }'
       
 #       - name: Deploy Stage
 #         uses: WorkshopOrgTest/api-composite-action@v2.3
