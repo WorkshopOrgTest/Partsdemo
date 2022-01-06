@@ -1,5 +1,7 @@
 name: APITest
 on:
+  pull_request : 
+   branches: [master]
   issue_comment:
     types: [created]
 
@@ -22,7 +24,16 @@ jobs:
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/WorkshopOrgTest/PartsTest/check-runs \
             -d '{"name":"build", "head_sha": "'"$BUILD_COMMIT"'", "status": "completed", "conclusion": "success" }'
-      
+  pr_commented:
+    # This job only runs for pull request comments
+    name: PR comment
+    if: ${{ github.event.issue.pull_request }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Comment on PR #${{ github.event.issue.number }}"
+          
+          
 #       - name: Deploy Stage
 #         uses: WorkshopOrgTest/api-composite-action@v2.3
 #         with:
