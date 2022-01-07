@@ -21,6 +21,7 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
+        id: image-version
         env: 
           SECRETS_CONTEXT: "${{ toJson(secrets) }}"
         run: |
@@ -31,3 +32,7 @@ jobs:
           $tags = $object.metadata.container.tags
           Write-Output $tags[0]
         shell: pwsh
+        
+      - name: Run a multi-line script
+        run: |
+          echo ${{steps.image-version.outputs}}
