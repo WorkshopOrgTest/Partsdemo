@@ -26,7 +26,7 @@ jobs:
         run: |
           $secrets = ($env:SECRETS_CONTEXT | ConvertFrom-Json -AsHashtable)
           $secrets
-          $token = ${{secrets.API_TOKEN}}
+          $token = $secrets.API_TOKEN
           $object = Invoke-RestMethod -Method Get -Uri https://api.github.com/orgs/CanarysPlayground/packages/container/ruby-rails/versions -Headers @{Authorization = 'Bearer ' + $token}
           $tags = $object.metadata.container.tags
           Write-Output $tags[0]
