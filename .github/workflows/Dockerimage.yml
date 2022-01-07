@@ -26,13 +26,14 @@ jobs:
           SECRETS_CONTEXT: "${{ toJson(secrets) }}"
         run: |
           $secrets = ($env:SECRETS_CONTEXT | ConvertFrom-Json -AsHashtable)
-          $secrets
           $token = $secrets.API_TOKEN
           $object = Invoke-RestMethod -Method Get -Uri https://api.github.com/orgs/CanarysPlayground/packages/container/ruby-rails/versions -Headers @{Authorization = 'Bearer ' + $token}
           $tags = $object.metadata.container.tags
-          Write-Output $tags[0]
+          $imageversion = $tags[0]
+          Write-Output $imageversion
+          echo "::set-output name=imageversion::$imageversion" 
         shell: pwsh
         
-      - name: Run a multi-line script
+      - name: get output
         run: |
-          echo ${{steps.image-version.outputs}}
+          echo ${{steps.image-version.outputs.imageversion}}
