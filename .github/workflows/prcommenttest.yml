@@ -6,7 +6,10 @@ on:
 
 jobs: 
   do-stuff-when-pr-commented:        
-    if: github.event.issue.pull_request && github.actor=="github-actions[bot]" && startsWith(github.event.comment.body, 'comment from actions') 
+    if: |
+      ${{github.event.issue.pull_request}} && 
+      (github.actor=="github-actions[bot]") && 
+      startsWith(github.event.comment.body, 'comment from actions') 
     name: Run this only when PR is commented
     runs-on: ubuntu-latest
     steps:
