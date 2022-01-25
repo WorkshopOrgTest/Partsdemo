@@ -21,7 +21,7 @@ jobs:
       
       - name: Add PR Comment
         run: |
-         curl -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization: ${{ secrets.GITHUB_TOKEN }}"  https://api.github.com/repos/WorkshopOrgTest/PartsTest/issues/46/comments -d '{"body":"comment from actions"}'
+         curl -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization: ${{ secrets.API_TOKEN }}"  https://api.github.com/repos/WorkshopOrgTest/PartsTest/issues/46/comments -d '{"body":"comment from actions"}'
     
 
       - name: Get PR Details
