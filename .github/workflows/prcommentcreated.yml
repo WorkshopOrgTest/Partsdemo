@@ -18,6 +18,13 @@ jobs:
           route: ${{ github.event.issue.pull_request.url }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+      
+      - name: Add PR Comment
+        uses: mshick/add-pr-comment@v1
+        with:
+          message: new comment
+          repo-token: ${{secrets.GitHub_token}}
+    
 
       - name: Get PR Details
         id: pr_details
