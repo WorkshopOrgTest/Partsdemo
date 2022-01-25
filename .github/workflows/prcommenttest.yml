@@ -1,0 +1,20 @@
+name: PR Checks on PR Comment Test
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs: 
+  do-stuff-when-pr-commented:        
+    if: github.event.issue.pull_request && (github.actor!=github-actions[bot])
+    name: Run this only when PR is commented
+    runs-on: ubuntu-latest
+    steps:
+      # Get the right ref for the PR. actions/checkout clones the main/master by default
+      - name: GitHub API Request
+        id: request
+        uses: octokit/request-action@v2.0.0
+        with:
+          route: ${{ github.event.issue.pull_request.url }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
