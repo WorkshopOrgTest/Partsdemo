@@ -6,7 +6,7 @@ on:
 
 jobs: 
   do-stuff-when-pr-commented:        
-    if: github.event.issue.pull_request && (github.actor!="github-actions[bot]") && (github.actor!="github-actions[bot]")
+    if: ${{github.event.issue.pull_request}} && startsWith(github.event.comment.body, 'test action run') && (github.actor!="github-actions[bot]")
     name: Run this only when PR is commented
     runs-on: ubuntu-latest
     steps:
