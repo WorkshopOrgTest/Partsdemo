@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Get the right ref for the PR. actions/checkout clones the main/master by default
+      - run: |
+          echo ${{ github.event.issue.pull_request.url }}/checks
       - name: GitHub API Request
         id: request
         uses: octokit/request-action@v2.0.0
