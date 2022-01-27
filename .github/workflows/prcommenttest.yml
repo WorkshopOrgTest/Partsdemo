@@ -26,4 +26,4 @@ jobs:
         run: |
           echo "::set-output name=pr_merge_sha::${{ fromJson(steps.request.outputs.data).merge_commit_sha }}"
           echo "::set-output name=pr_head_sha::${{ fromJson(steps.request.outputs.data).head.sha }}"
-          echo "${{ steps.request.outputs.data}}"
+          echo ${{ steps.request.outputs}}
