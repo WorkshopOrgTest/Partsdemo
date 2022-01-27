@@ -9,7 +9,7 @@ on:
 jobs: 
   do-stuff-when-pr-commented:        
     #if: ${{github.event.issue.pull_request }} && ${{github.actor!=dispatch-event-test[bot]}}
-    if: github.event.issue.pull_request && (github.actor=='dispatch-event-test[bot]')
+    if: github.event.issue.pull_request && (github.actor!='dispatch-event-test[bot]')
     name: Run this only when PR is commented
     runs-on: ubuntu-latest
     steps:
