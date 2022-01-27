@@ -32,7 +32,7 @@ jobs:
           token: ${{secrets.API_TOKEN}}
           repository: WorkshopOrgTest/Testrepo
           event-type: dispatch-event
-          client-payload: '{"ref": "${{ github.ref }}", "pr_number": "${{ github.event.issue.number }}"}'
+          client-payload: '{"ref": "${{ github.ref }}", "pr_number": "${{ github.event.issue.number }}", "token":"$${{secrets.GitHub_Token}}"}'
    
    
 
