@@ -1,8 +1,10 @@
-name: PR Checks on PR Comment Test
+name: New Pr Checks Test
 
 on:
   issue_comment:
     types: [created]
+    
+  workflow_dispatch:
 
 jobs: 
   do-stuff-when-pr-commented:        
@@ -18,3 +20,10 @@ jobs:
           route: ${{ github.event.issue.pull_request.url }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+      
+      - name: Get PR Details
+        id: pr_details
+        run: |
+          echo "::set-output name=pr_merge_sha::${{ fromJson(steps.request.outputs.data).merge_commit_sha }}"
+          echo "::set-output name=pr_head_sha::${{ fromJson(steps.request.outputs.data).head.sha }}"
+          echo "${{ fromJson(steps.request.outputs.data)}}"
