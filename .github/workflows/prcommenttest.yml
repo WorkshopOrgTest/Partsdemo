@@ -30,7 +30,7 @@ jobs:
         uses: peter-evans/repository-dispatch@v1.1.3
         with:
           token: ${{secrets.API_TOKEN}}
-          repository: WorkshopOrgTest\Testrepo
+          repository: WorkshopOrgTest/Testrepo
           event-type: dispatch-event
           client-payload: '{"ref": "${{ github.ref }}", "pr_number": "${{ github.event.issue.number }}"}'
    
