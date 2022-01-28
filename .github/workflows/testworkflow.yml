@@ -25,5 +25,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.ENV_TOKEN }}       
           
+          
       - run: |
          echo "::set-output name=pr_merge_sha::${{ fromJson(steps.request.outputs.data).merge_commit_sha }}"
