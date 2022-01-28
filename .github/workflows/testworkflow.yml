@@ -24,5 +24,6 @@ jobs:
           route: ${{ github.event.issue.pull_request.url }}
         env:
           GITHUB_TOKEN: ${{ secrets.ENV_TOKEN }}       
+          
       - run: |
-         echo ${{steps.request.outputs.data.merge_commit_sha}}
+         echo "::set-output name=pr_merge_sha::${{ fromJson(steps.request.outputs.data).merge_commit_sha }}"
