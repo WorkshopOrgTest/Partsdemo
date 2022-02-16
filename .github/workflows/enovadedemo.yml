@@ -1,0 +1,48 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Parts-CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    
+    runs-on: windows-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      
+      - run: |
+         cd ${{github.workspace}}
+         dir
+
+      - name: Setup NuGet.exe for use with actions
+        uses: NuGet/setup-nuget@v1.0.5
+        
+      - name : Dependency Restore
+        run: nuget restore ${{github.workspace}}/PartsUnlimited.sln
+        
+      - name : Setup Msbuild
+        uses: microsoft/setup-msbuild@v1.1
+        
+      - name  : BUild the app
+        run: msbuild ${{github.workspace}}/PartsUnlimited.sln
+  
+        
+  deploy:
+    
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+
+      
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
