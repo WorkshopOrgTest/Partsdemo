@@ -12,7 +12,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     
-    runs-on: windows-latest
+    runs-on: windows-2019
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
