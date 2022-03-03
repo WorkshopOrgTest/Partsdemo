@@ -32,8 +32,14 @@ jobs:
         uses: microsoft/setup-msbuild@v1.1
         
       - name  : BUild the app
-        run: msbuild ${{github.workspace}}/PartsUnlimited.sln
-  
+        run:  msbuild ${{env.SLN_FILE}} /p:TransformWebConfigEnabled=False /p:AutoParameterizationWebConfigConnectionStrings=False /p:Configuration=Release /p:Platform='Any CPU' /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="${{github.workspace}}\stagingdir"
+
+      
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.3.1
+        with:
+           name: Parts-artifact
+           path: ${{github.workspace}}\stagingdir
         
   deploy:
     
