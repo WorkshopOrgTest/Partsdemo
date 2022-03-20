@@ -29,7 +29,7 @@ jobs:
         
     - name: Build App
       run: |
-       msbuild ${{env.SLN_FILE}} /p:PublishUrl:${{github.workspace}}\stagingdir\publishoutput /p:TransformWebConfigEnabled=False /p:Configuration=Release /p:Platform='Any CPU' /p:DeployOnBuild=true /p:DeployTarget=WebPublish /p:WebPublishMethod=FileSystem
+       msbuild ${{env.SLN_FILE}} /p:PublishDir:"${{github.workspace}}\stagingdir\publishoutput" /p:TransformWebConfigEnabled=False /p:Configuration=Release /p:Platform='Any CPU' /p:DeployOnBuild=true /p:DeployTarget=WebPublish /p:WebPublishMethod=FileSystem
 
     - name: Publish Build artifact
       uses: actions/upload-artifact@v2
