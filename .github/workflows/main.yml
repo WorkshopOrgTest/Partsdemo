@@ -2,8 +2,6 @@ name: PartsUnlimited.Web
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ master ]
 
 env:
   SLN_FILE: PartsUnlimited.sln
@@ -79,116 +77,116 @@ jobs:
         run: vstest.console.exe /Platform:x64 PartsUnlimited.UnitTests.dll
         working-directory: Unit-Tests
   
-  CodeQL:
-      name: ⭕️ Security Scanning  
-      runs-on: windows-latest
-      permissions:
-       actions: read
-       contents: read
-       security-events: write
+#   CodeQL:
+#       name: ⭕️ Security Scanning  
+#       runs-on: windows-latest
+#       permissions:
+#        actions: read
+#        contents: read
+#        security-events: write
        
-      needs: [ Build, Test ]
-      strategy:
-       fail-fast: false
-       matrix:
-        language: [ 'csharp', 'javascript' ]
+#       needs: [ Build, Test ]
+#       strategy:
+#        fail-fast: false
+#        matrix:
+#         language: [ 'csharp', 'javascript' ]
         
-      steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+#       steps:
+#       - name: Checkout Code
+#         uses: actions/checkout@v2
+#         with:
+#           fetch-depth: 0
       
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v1
-        with:
-          languages: ${{ matrix.language }}
+#       - name: Initialize CodeQL
+#         uses: github/codeql-action/init@v1
+#         with:
+#           languages: ${{ matrix.language }}
           
-#       - name: Autobuild
-#         uses: github/codeql-action/autobuild@v1
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1
+# #       - name: Autobuild
+# #         uses: github/codeql-action/autobuild@v1
+#       - name: Setup MSBuild
+#         uses: microsoft/setup-msbuild@v1
         
-      - name: Setup NuGet
-        uses: NuGet/setup-nuget@v1.0.5
+#       - name: Setup NuGet
+#         uses: NuGet/setup-nuget@v1.0.5
 
-      - name: NuGet restore
-        run: nuget restore
+#       - name: NuGet restore
+#         run: nuget restore
 
-      - name: Build C# Project
-        run: |
-           msbuild ${{env.SLN_FILE}} /p:UseSharedCompilation=false /p:TransformWebConfigEnabled=False /p:AutoParameterizationWebConfigConnectionStrings=False /p:Configuration=Release /p:Platform='Any CPU'
+#       - name: Build C# Project
+#         run: |
+#            msbuild ${{env.SLN_FILE}} /p:UseSharedCompilation=false /p:TransformWebConfigEnabled=False /p:AutoParameterizationWebConfigConnectionStrings=False /p:Configuration=Release /p:Platform='Any CPU'
           
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v1
+#       - name: Perform CodeQL Analysis
+#         uses: github/codeql-action/analyze@v1
 
-  Sonar-Analysis:
-    name: 🔆 Sonar Qube Analysis
-    runs-on: ubuntu-latest
-    needs: [ Build, Test ]
-    
-    steps:
-      
-      - name: Checkout
-        uses: actions/checkout@v2
-      
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-#   Lint:
-#     name: 👀 Lint Code Base
+#   Sonar-Analysis:
+#     name: 🔆 Sonar Qube Analysis
 #     runs-on: ubuntu-latest
 #     needs: [ Build, Test ]
     
 #     steps:
-#       - name: Checkout Code
+      
+#       - name: Checkout
 #         uses: actions/checkout@v2
-#         with:
-#           # Full git history is needed to get a proper list of changed files within `super-linter`
-#           fetch-depth: 0
-
-#       - name: Lint Code Base
-#         uses: github/super-linter@v3
+      
+#       - name: SonarCloud Scan
+#         uses: sonarsource/sonarcloud-github-action@master
 #         env:
-#           VALIDATE_ALL_CODEBASE: true
-#           DEFAULT_BRANCH: master
 #           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-  Deploy:
-      name: 📦 Deploy to Azure Web App
-      runs-on: ubuntu-latest
-      environment: 
-        name: Azure Web App
-        url: https://${{env.WEB_APP_NAME}}.azurewebsites.net
-      needs: [ Build, Test, CodeQL, Sonar-Analysis]
+# #   Lint:
+# #     name: 👀 Lint Code Base
+# #     runs-on: ubuntu-latest
+# #     needs: [ Build, Test ]
+    
+# #     steps:
+# #       - name: Checkout Code
+# #         uses: actions/checkout@v2
+# #         with:
+# #           # Full git history is needed to get a proper list of changed files within `super-linter`
+# #           fetch-depth: 0
+
+# #       - name: Lint Code Base
+# #         uses: github/super-linter@v3
+# #         env:
+# #           VALIDATE_ALL_CODEBASE: true
+# #           DEFAULT_BRANCH: master
+# #           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+#   Deploy:
+#       name: 📦 Deploy to Azure Web App
+#       runs-on: ubuntu-latest
+#       environment: 
+#         name: Azure Web App
+#         url: https://${{env.WEB_APP_NAME}}.azurewebsites.net
+#       needs: [ Build, Test, CodeQL, Sonar-Analysis]
       
-      steps:
+#       steps:
         
-      - name: Download a Build Artifact
-        uses: actions/download-artifact@v2.0.7
-        with:
-          name: partsunlimited
+#       - name: Download a Build Artifact
+#         uses: actions/download-artifact@v2.0.7
+#         with:
+#           name: partsunlimited
           
-      - name: Azure WebApp
-        uses: Azure/webapps-deploy@v2
-        with:
-          app-name: ${{env.WEB_APP_NAME}}.azurewebsites.net
-          package: .
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE}}
+#       - name: Azure WebApp
+#         uses: Azure/webapps-deploy@v2
+#         with:
+#           app-name: ${{env.WEB_APP_NAME}}.azurewebsites.net
+#           package: .
+#           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE}}
   
-  Validate-Web:
-      name: ✅ Validate Web Deployment
-      runs-on: ubuntu-latest
-      needs: [ Deploy ]
-      steps:
+#   Validate-Web:
+#       name: ✅ Validate Web Deployment
+#       runs-on: ubuntu-latest
+#       needs: [ Deploy ]
+#       steps:
       
-      - name: Check the deployed service URL
-        uses: jtalk/url-health-check-action@v1.2
-        with:
-          url: https://${{ env.WEB_APP_NAME }}.azurewebsites.net
-          follow-redirect: no
-          max-attempts: 3 
-          retry-delay: 5s 
+#       - name: Check the deployed service URL
+#         uses: jtalk/url-health-check-action@v1.2
+#         with:
+#           url: https://${{ env.WEB_APP_NAME }}.azurewebsites.net
+#           follow-redirect: no
+#           max-attempts: 3 
+#           retry-delay: 5s 
