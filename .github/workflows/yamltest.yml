@@ -35,10 +35,9 @@ jobs:
           
       - uses: actions/github-script@v6
         with:
-          script: |
-            
+          script: | 
             for (value of ${{env.Bank}}) {
-            const createissue = github.rest.issues.createComment({
+            const createissue = await github.rest.issues.createComment({
               issue_number: 50,
               owner: context.repo.owner,
               repo: context.repo.repo,
