@@ -18,6 +18,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - uses: actions/checkout@v2.4.2
       - uses: fabasoad/yaml-json-xml-converter-action@main
         id: json2yaml
         with:
