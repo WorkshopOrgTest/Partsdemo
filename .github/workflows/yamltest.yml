@@ -28,3 +28,19 @@ jobs:
           
       - name: Print json2yaml result
         run: echo "${{ steps.json2yaml.outputs.data }}"
+        
+      - run: |
+          echo ${{fromJson(steps.json2yaml.outputs.data).bank}} >> $GITHUB_STEP_SUMMARY
+          
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: 50,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: $GITHUB_STEP_SUMMARY
+            })
+        
+      
+      
