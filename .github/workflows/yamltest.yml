@@ -37,7 +37,10 @@ jobs:
                issue_number: 50,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: ${{fromJson(steps.json2yaml.outputs.data)}}
+                body: |
+                ```
+                 ${{fromJson(steps.json2yaml.outputs.data)}}
+                ```
               })
               
        
