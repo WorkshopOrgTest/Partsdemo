@@ -33,14 +33,13 @@ jobs:
           with:
            script: | 
               const banks = ${{fromJson(steps.json2yaml.outputs.data).bank}}
-              for (const value of banks) {
               const createissue = await github.rest.issues.createComment({
                issue_number: 50,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: `value`
+                body: `banks`
               })
-              }
+              
        
  
       
