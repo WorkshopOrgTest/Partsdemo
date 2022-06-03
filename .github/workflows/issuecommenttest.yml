@@ -1,0 +1,14 @@
+name: Issue Comment Workflow
+
+on:
+  issue_comment:
+    types: [created]
+    
+jobs: 
+  do-stuff-when-issue-commented:        
+    name: Run this only when issue is commented
+    runs-on: ubuntu-latest
+    steps:
+      
+       - run: |
+           echo ${{github.event.issue.comment.body}}
