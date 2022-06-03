@@ -4,10 +4,8 @@ name: yamltest
 
 # Controls when the workflow will run
 on:
-
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+  issue_comment:
+    types: [created]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -18,32 +16,34 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v2.4.2
-      - uses: fabasoad/yaml-json-xml-converter-action@main
-        id: json2yaml
-        with:
-          path: '${{github.workspace}}/testparameters.yml'
-          from: 'yaml'
-          to: 'json'
+#       - uses: actions/checkout@v2.4.2
+#       - uses: fabasoad/yaml-json-xml-converter-action@main
+#         id: json2yaml
+#         with:
+#           path: '${{github.workspace}}/testparameters.yml'
+#           from: 'yaml'
+#           to: 'json'
           
-      - name: Print json2yaml result
-        run: echo "${{ steps.json2yaml.outputs.data }}"
+#       - name: Print json2yaml result
+#         run: echo "${{ steps.json2yaml.outputs.data }}"
         
-      - run: |
-          echo "Bank=${{fromJson(steps.json2yaml.outputs.data).bank}}" >> $GITHUB_ENV
-          echo $GITHUB_ENV
+#       - run: |
+#           echo "Bank=${{fromJson(steps.json2yaml.outputs.data).bank}}" >> $GITHUB_ENV
+#           echo $GITHUB_ENV
           
-      - uses: actions/github-script@v6
-        with:
-          script: | 
-            for (value of ${{fromJson(steps.json2yaml.outputs.data).bank}}) {
-            const createissue = await github.rest.issues.createComment({
-              issue_number: 50,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: |
-                `${{ env.Bank[value] }}`
-            })
-            }
-      
+#       - uses: actions/github-script@v6
+#         with:
+#           script: | 
+#             for (value of ${{fromJson(steps.json2yaml.outputs.data).bank}}) {
+#             const createissue = await github.rest.issues.createComment({
+#               issue_number: 50,
+#               owner: context.repo.owner,
+#               repo: context.repo.repo,
+#               body: |
+#                 `${{ env.Bank[value] }}`
+#             })
+#             }
+       
+      - run: |
+          echo ${{github.event.comment.body}}
       
