@@ -30,7 +30,7 @@ jobs:
         run: echo "${{ steps.json2yaml.outputs.data }}"
         
       - run: |
-          echo "Bank=${{fromJson(steps.json2yaml.outputs.data.bank)}}" >> $GITHUB_ENV
+          echo "Bank=${{fromJson(steps.json2yaml.outputs.data).bank[0]}}" >> $GITHUB_ENV
           echo $GITHUB_ENV
       - uses: actions/github-script@v6
         with:
