@@ -37,7 +37,7 @@ jobs:
         with:
           script: |
             
-            for (value of ${{env.Bank}} {
+            for (value of ${{env.Bank}}) {
             const createissue = github.rest.issues.createComment({
               issue_number: 50,
               owner: context.repo.owner,
@@ -45,6 +45,6 @@ jobs:
               body: |
                 `${{ env.Bank[value] }}`
             })
-         
+         }
       
       
