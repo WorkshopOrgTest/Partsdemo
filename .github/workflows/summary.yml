@@ -38,3 +38,8 @@ jobs:
         run: |
           echo '***Links***' >> $GITHUB_STEP_SUMMARY
           echo '- https://github.com' >> $GITHUB_STEP_SUMMARY
+      
+      - name: Run a one-line script
+        run: |
+          echo ${{github.workspace}}/graph.md >> $GITHUB_STEP_SUMMARY
+    
