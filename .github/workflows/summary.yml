@@ -27,4 +27,9 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo 'Adding Summary' >> $GITHUB_STEP_SUMMARY
+        run: |
+          echo '## Adding Summary Notes' >> $GITHUB_STEP_SUMMARY
+      
+      - name: Run a one-line script
+        run: |
+          echo '### Second Step Execution' >> $GITHUB_STEP_SUMMARY
