@@ -41,5 +41,5 @@ jobs:
       
       - name: Run a one-line script
         run: |
-          echo ${{github.workspace}}/graph.md >> $GITHUB_STEP_SUMMARY
+          cat ${{github.workspace}}/graph.md >> $GITHUB_STEP_SUMMARY
     
