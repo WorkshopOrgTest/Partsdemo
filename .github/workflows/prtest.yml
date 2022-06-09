@@ -1,8 +1,7 @@
 name: PRTEST
 on:
-  push:
-    tags:
-      - '*'
+  pull_request:
+    branches: [master]
 
 jobs:
   build:
@@ -42,17 +41,33 @@ jobs:
 
     
            
-#       - name: Add Comment to Pull Request if Failure
+      - name: Add Comment to Pull Request 
 #         if: steps.compare.outputs.status != 'success'
-#         uses: actions/github-script@v5
-#         with:
-#           script: |
-#            await github.rest.issues.createComment({
-#            owner: context.repo.owner, 
-#            repo: context.repo.repo, 
-#            issue_number: ${{ env.pr_num }},
-#            body: 'Incorrect PR is created'
-#            });  
+        uses: actions/github-script@v5
+        with:
+          script: |
+              const fs = require('fs');
+
+              let rawdata = fs.readFileSync(${{github.workspace}}/test.json);
+
+              let values = JSON.parse(rawdata);
+
+              //console.log(values)
+              let gateinfo= [];
+              for (let i = 0; i < values.projectStatus.conditions.length; i++) {
+                  let metricstatus = values.projectStatus.conditions[i].status;
+                  let metrickey = values.projectStatus.conditions[i].metricKey;
+
+                  gateinfo.push(metrickey,metricstatus);
+
+              }
+              console.log(gateinfo);
+              await github.rest.issues.createComment({
+              owner: context.repo.owner, 
+              repo: context.repo.repo, 
+              issue_number: ${{ env.pr_num }},
+              body: `${gateinfo}`
+              });  
            
 #       - name: Close PR and Failing action
 #         if: steps.compare.outputs.status != 'success'
