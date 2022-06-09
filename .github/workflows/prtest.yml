@@ -19,24 +19,28 @@ jobs:
 #         if: ${{ github.head_ref == 'feature' && github.base_ref == 'development' }}
 #         run: echo ::set-output name=status::success
 #         continue-on-error: true
-        
+      
+      - name: Build Changelog
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release
+        uses: actions/create-release@v3
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          body: ${{steps.github_release.outputs.changelog}}
+      
       - name: Get Pull Request ID
         run: |
          export PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
          echo "pr_num=$PR_NUMBER" >> $GITHUB_ENV
          echo '### Hello world! :rocket:' >> $GITHUB_STEP_SUMMARY
-         echo ${{github.workspace}}/jacoco-sessions.html >> $GITHUB_STEP_SUMMARY
+         echo ${{steps.github_release.outputs.changelog}} >> $GITHUB_STEP_SUMMARY
 
-      - name: Add Comment to Pull Request if Success
-        uses: actions/github-script@v5
-        with:
-          script: |
-           await github.rest.issues.createComment({
-           owner: context.repo.owner, 
-           repo: context.repo.repo, 
-           issue_number: ${{ env.pr_num }},
-           body: ${{env.job_summary}}
-           });
+    
            
 #       - name: Add Comment to Pull Request if Failure
 #         if: steps.compare.outputs.status != 'success'
