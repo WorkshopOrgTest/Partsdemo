@@ -14,20 +14,20 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
         
-      - name: Comparing Branches
-        id: compare
-        if: ${{ github.head_ref == 'feature' && github.base_ref == 'development' }}
-        run: echo ::set-output name=status::success
-        continue-on-error: true
+#       - name: Comparing Branches
+#         id: compare
+#         if: ${{ github.head_ref == 'feature' && github.base_ref == 'development' }}
+#         run: echo ::set-output name=status::success
+#         continue-on-error: true
         
       - name: Get Pull Request ID
         run: |
          export PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
          echo "pr_num=$PR_NUMBER" >> $GITHUB_ENV
+         echo '### Hello world! :rocket:' >> $GITHUB_STEP_SUMMARY
          
 
       - name: Add Comment to Pull Request if Success
-        if: steps.compare.outputs.status == 'success'
         uses: actions/github-script@v5
         with:
           script: |
@@ -35,31 +35,31 @@ jobs:
            owner: context.repo.owner, 
            repo: context.repo.repo, 
            issue_number: ${{ env.pr_num }},
-           body: 'Its Success'
+           body: $GITHUB_STEP_SUMMARY
            });
            
-      - name: Add Comment to Pull Request if Failure
-        if: steps.compare.outputs.status != 'success'
-        uses: actions/github-script@v5
-        with:
-          script: |
-           await github.rest.issues.createComment({
-           owner: context.repo.owner, 
-           repo: context.repo.repo, 
-           issue_number: ${{ env.pr_num }},
-           body: 'Incorrect PR is created'
-           });  
+#       - name: Add Comment to Pull Request if Failure
+#         if: steps.compare.outputs.status != 'success'
+#         uses: actions/github-script@v5
+#         with:
+#           script: |
+#            await github.rest.issues.createComment({
+#            owner: context.repo.owner, 
+#            repo: context.repo.repo, 
+#            issue_number: ${{ env.pr_num }},
+#            body: 'Incorrect PR is created'
+#            });  
            
-      - name: Close PR and Failing action
-        if: steps.compare.outputs.status != 'success'
-        uses: actions/github-script@v5
-        with:
-          script: |
-            await github.rest.issues.update({
-                owner: context.repo.owner,
-                repo: context.repo.repo ,
-                issue_number: ${{ env.pr_num }},
-                state: closed
-              });
+#       - name: Close PR and Failing action
+#         if: steps.compare.outputs.status != 'success'
+#         uses: actions/github-script@v5
+#         with:
+#           script: |
+#             await github.rest.issues.update({
+#                 owner: context.repo.owner,
+#                 repo: context.repo.repo ,
+#                 issue_number: ${{ env.pr_num }},
+#                 state: closed
+#               });
 
 
