@@ -25,7 +25,7 @@ jobs:
          export PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
          echo "pr_num=$PR_NUMBER" >> $GITHUB_ENV
          echo '### Hello world! :rocket:' >> $GITHUB_STEP_SUMMARY
-         
+         echo "job_summary=$GITHUB_STEP_SUMMARY" >> $GITHUB_ENV
 
       - name: Add Comment to Pull Request if Success
         uses: actions/github-script@v5
@@ -35,7 +35,7 @@ jobs:
            owner: context.repo.owner, 
            repo: context.repo.repo, 
            issue_number: ${{ env.pr_num }},
-           body: $GITHUB_STEP_SUMMARY
+           body: ${{env.job_summary}}
            });
            
 #       - name: Add Comment to Pull Request if Failure
