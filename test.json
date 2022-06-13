@@ -54,6 +54,7 @@
 "period": {
 "mode": "PREVIOUS_VERSION",
 "date": "2022-06-08T10:04:15+0000"
+ "test": "value"
 }
 }
 }
