@@ -6,4 +6,5 @@ if (Test-Path -Path $testPath) {
     mkdir $testPath
 }
 
+
 Copy-Item -Path . -Destination $testPath -Recurse -Force
