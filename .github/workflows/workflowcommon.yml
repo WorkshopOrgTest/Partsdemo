@@ -1,0 +1,11 @@
+name: Workflow_call test
+on:
+ workflow_call:
+  
+jobs:
+  myEvent:
+    runs-on: windows-latest
+    steps:
+
+     - run: |
+        echo "Execution of Workflow"
