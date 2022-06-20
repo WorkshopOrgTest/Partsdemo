@@ -1,11 +1,21 @@
 name: Workflow_call test
 on:
  workflow_call:
-  
+  secrets:
+     PAT_TOKEN:
+      required: true
 jobs:
   myEvent:
     runs-on: windows-latest
     steps:
 
-     - run: |
-        echo "Execution of Workflow"
+     - uses: octokit/request-action@v2.x
+       id: get_repo_data
+       with:
+          route: GET /repos/${{github.repository_owner}}/test-repocreated
+          owner: octokit
+          repo: request-action
+       env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+     
+     - run: "echo repo_data: ${{ steps.get_repo_data.outputs.data }}"
