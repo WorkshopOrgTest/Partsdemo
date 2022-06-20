@@ -1,9 +1,6 @@
 name: Workflow_call test
 on:
  workflow_call:
-  secrets:
-     PAT_TOKEN:
-      required: true
 jobs:
   myEvent:
     runs-on: windows-latest
